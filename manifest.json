@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Detrollify",
+  "version": "1.0",
+
+  "description": "Translate the translatable Troll Pesterchum quirks from Homestuck.",
+
+  "icons": {
+    "48": "icons/detrollify-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.homestuck.com/*"],
+      "js": ["detrollify.js"]
+    }
+  ]
+
+}
