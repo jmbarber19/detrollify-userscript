@@ -18,26 +18,48 @@ var hidetrolltext = "(hide troll)";
  * troll.
  *
  * @param handle
- * @param quirk
+ * @param quirks
  * @param lowercase
  * @constructor
  */
-var Troll = function(handle, quirk, lowercase) {
+var Troll = function(handle, quirks, lowercase) {
   if (typeof handle !== 'string') {
     throw "Handle is not string!";
   }
-  if (typeof quirk !== 'object') {
-    throw "Quirk is not key->value object!!";
+  if (!Array.isArray(quirks)) {
+    throw "Quirks is not an array!";
   }
   if (typeof lowercase !== 'boolean') {
     throw "Lowercase is not boolean!";
   }
-
+console.log('okay');
   return {
     'handle' : handle,
-    'quirk' : quirk,
+    'quirks' : quirks,
     'lowercase' : lowercase
   };
+};
+
+/**
+ * A definition of a find and replace pair, where the replace is a Regex string.
+ *
+ * @param replace
+ * @param find
+ * @returns {{find: *, replace: *}}
+ * @constructor
+ */
+var Quirk = function(replace, find) {
+  if (typeof replace !== 'string') {
+    throw "Quirk's replace is not a string!";
+  }
+  if (typeof find !== 'string') {
+    throw "Quirk's find is not a string!";
+  }
+
+  return {
+    'replace' : replace,
+    'find' : find
+  }
 };
 
 /**
@@ -45,12 +67,13 @@ var Troll = function(handle, quirk, lowercase) {
  * object they correspond to.
  */
 var trolls = {
-  // 3V3RY S3SS1ON 1S D1FF3R3NT
-  'GC' : new Troll('GC', {
-      '1': 'I',
-      '3': 'E',
-      '4': 'A'
-    }, true)
+  // 3V3RY S3SS1ON 1S D1FF3R3NT 4 YOU
+  'GC' : new Troll('GC', [
+      new Quirk('I', '\w*(1)|(1)\w*|\b\w*(1)\w*\b'),
+      new Quirk('TO', '\s+(2)\s+'),
+      new Quirk('E', '\w*(3)|(3)\w*|\b\w*(3)\w*\b'),
+      new Quirk('A', '\w*(4)|(4)\w*|\b\w*(4)\w*\b') // "4" only means "for" when alone.
+    ], true)
 };
 
 /**
@@ -65,20 +88,23 @@ chatlogs.each(function(index, e) {
   if (testHandle && trolls[testHandle[1]]) {
     // Run replacements based on which handle was found.
     var currentTroll = trolls[testHandle[1]];
-    if (currentTroll.quirk) {
-      for (var quirk in currentTroll.quirk) {
+    if (currentTroll.quirks) {
+      console.log('current troll');
+      for (var quirkindex in currentTroll.quirks) {
+        if (currentTroll.quirks.hasOwnProperty(quirkindex)) {
+          var quirk = currentTroll.quirks[quirkindex];
+          console.log(quirkindex);
 
-        // Currently this will look for individual characters that appear within
-        // words, IE a single number-letter replacement. This may need to be
-        // moved to the Troll definition if they start using more complex quirks.
-        var re = new RegExp('\w*(' + quirk + ')|(' + quirk + ')\w*|\b\w*(' + quirk + ')\w*\b', 'g');
-
-        fixedString = fixedString.replace(re, function (match, p1, offset, string) {
-          if (currentTroll.quirk[p1]) {
-            return currentTroll.quirk[p1];
-          }
-          return match;
-        })
+          // Quirks should be a pair of find/replace pairs, where replace is a REGEX-ready string.
+          var re = new RegExp(quirk.find, 'g');
+          fixedString = fixedString.replace(re, function (match, p1, offset, string) {
+            console.log('match: ' + match + ', p1: ' + p1 + ', string: ' + string);
+            if (p1) {
+              return match.replace(p1, quirk.replace);
+            }
+            return match;
+          });
+        }
       }
     }
 
