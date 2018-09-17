@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.homestuck.com/*"],
-      "js": ["detrollify.js"]
+      "js": ["assets/js/jquery-3.3.1.min.js", "detrollify.js"]
     }
   ]
 
