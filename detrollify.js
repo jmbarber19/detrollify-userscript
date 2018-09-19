@@ -67,13 +67,13 @@ var Quirk = function(replace, find) {
  * object they correspond to.
  */
 var trolls = {
-  // 3V3RY S3SS1ON 1S D1FF3R3NT 4 YOU
-  'GC' : new Troll('GC', [
+  'GC' : new Troll('GC', [ // 3V3RY S3SS1ON 1S D1FF3R3NT 4 YOU
       new Quirk('I', '\w*(1)|(1)\w*|\b\w*(1)\w*\b'),
       new Quirk('TO', '\s+(2)\s+'),
       new Quirk('E', '\w*(3)|(3)\w*|\b\w*(3)\w*\b'),
       new Quirk('A', '\w*(4)|(4)\w*|\b\w*(4)\w*\b') // "4" only means "for" when alone.
-    ], true)
+    ], true),
+  'GA' : new Troll('GA', [], true) // So You May Have Some Insight Into Her Disposition
 };
 
 /**

@@ -7,6 +7,7 @@ After installation, Detrollify should work automatically, cleaning up troll quir
 ### Trolls Currently translated:
 
 * GC
+* GA
 
 ### Show Troll
 
