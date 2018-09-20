@@ -73,7 +73,9 @@ var trolls = {
       new Quirk('E', '\w*(3)|(3)\w*|\b\w*(3)\w*\b'),
       new Quirk('A', '\w*(4)|(4)\w*|\b\w*(4)\w*\b') // "4" only means "for" when alone.
     ], true),
-  'GA' : new Troll('GA', [], true) // So You May Have Some Insight Into Her Disposition
+  'GA' : new Troll('GA', [], true), // So You May Have Some Insight Into Her Disposition
+  'AT' : new Troll('AT', [], true), // oH, tHE ONE WHO'S SUPPOSED TO BE "cool", i THINK,
+  'CG' : new Troll('CG', [], true) // MUST EXPLAIN WHY IT SPROUTED SUCH A MISERABLE CROP OF PLAYERS.
 };
 
 /**
