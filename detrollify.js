@@ -12,6 +12,13 @@ var chatlogs = $(".o_chat-log span");
 var showtrolltext = "(show troll)";
 var hidetrolltext = "(hide troll)";
 
+// Emoticons only needs to include ones that have a letter character which will
+// be affected by the lowercasifying.
+var emoticons = [
+  '>:D',
+  ':P'
+];
+
 /**
  * A constructor to hold necessary data on a per-Troll basis.
  * I created this object in case I need to create a unique function for each
@@ -32,7 +39,7 @@ var Troll = function(handle, quirks, lowercase) {
   if (typeof lowercase !== 'boolean') {
     throw "Lowercase is not boolean!";
   }
-console.log('okay');
+
   return {
     'handle' : handle,
     'quirks' : quirks,
@@ -91,11 +98,10 @@ chatlogs.each(function(index, e) {
     // Run replacements based on which handle was found.
     var currentTroll = trolls[testHandle[1]];
     if (currentTroll.quirks) {
-      console.log('current troll');
+
       for (var quirkindex in currentTroll.quirks) {
         if (currentTroll.quirks.hasOwnProperty(quirkindex)) {
           var quirk = currentTroll.quirks[quirkindex];
-          console.log(quirkindex);
 
           // Quirks should be a pair of find/replace pairs, where replace is a REGEX-ready string.
           var re = new RegExp(quirk.find, 'g');
@@ -115,6 +121,11 @@ chatlogs.each(function(index, e) {
     // be ideal.
     if (currentTroll.lowercase) {
       fixedString = fixedString.toLowerCase();
+
+      for (var index in emoticons) {
+        var emoticon = emoticons[index];
+        fixedString = fixedString.replace(emoticon.toLowerCase(), emoticon);
+      }
     }
 
     // Add our link to the end of every line, allowing toggle of quirky roll.
