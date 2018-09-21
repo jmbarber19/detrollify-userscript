@@ -120,8 +120,13 @@ chatlogs.each(function(index, e) {
     // intelligent replacement scheme, which allows emoticons for example, would
     // be ideal.
     if (currentTroll.lowercase) {
+      // Temporarily remove the Handle from the front of the string so it doesn't
+      // get lowercasified, then lowercasify all dialogue.
+      fixedString = fixedString.substring(currentTroll.handle.length);
       fixedString = fixedString.toLowerCase();
+      fixedString = currentTroll.handle + fixedString;
 
+      // Replace any lowercasified emoticons with uppercase ones.
       for (var index in emoticons) {
         var emoticon = emoticons[index];
         fixedString = fixedString.replace(emoticon.toLowerCase(), emoticon);
