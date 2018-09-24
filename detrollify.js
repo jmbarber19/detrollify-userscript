@@ -119,7 +119,6 @@ chatlogs.each(function(index, e) {
 
           // Quirks should be a pair of find/replace pairs, where replace is a REGEX-ready string.
           var re = new RegExp(quirk.find, 'g');
-          console.log(re);
           fixedString = fixedString.replace(re, function (match) {
             // console.log(arguments);
 
