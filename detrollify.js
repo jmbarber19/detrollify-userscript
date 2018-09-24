@@ -16,6 +16,7 @@ var hidetrolltext = "(hide troll)";
 // be affected by the lowercasifying.
 var emoticons = [
   '>:D',
+  '>8D',
   ':P'
 ];
 
@@ -48,23 +49,28 @@ var Troll = function(handle, quirks, lowercase) {
 };
 
 /**
- * A definition of a find and replace pair, where the replace is a Regex string.
+ * A definition of a find and replace pair, and the Regex used to locate the issue.
  *
- * @param replace
+ * @param fixed
+ * @param broken (currently unused, but I figure it's nice to plan ahead)
  * @param find
  * @returns {{find: *, replace: *}}
  * @constructor
  */
-var Quirk = function(replace, find) {
-  if (typeof replace !== 'string') {
+var Quirk = function(fixed, broken, find) {
+  if (typeof fixed !== 'string') {
     throw "Quirk's replace is not a string!";
+  }
+  if (typeof broken !== 'string') {
+    throw "Quirk's broken is not a string!";
   }
   if (typeof find !== 'string') {
     throw "Quirk's find is not a string!";
   }
 
   return {
-    'replace' : replace,
+    'fixed' : fixed,
+    'broken' : broken,
     'find' : find
   }
 };
@@ -75,14 +81,22 @@ var Quirk = function(replace, find) {
  */
 var trolls = {
   'GC' : new Troll('GC', [ // 3V3RY S3SS1ON 1S D1FF3R3NT 4 YOU
-      new Quirk('I', '\w*(1)|(1)\w*|\b\w*(1)\w*\b'),
-      new Quirk('TO', '\s+(2)\s+'),
-      new Quirk('E', '\w*(3)|(3)\w*|\b\w*(3)\w*\b'),
-      new Quirk('A', '\w*(4)|(4)\w*|\b\w*(4)\w*\b') // "4" only means "for" when alone.
+      new Quirk('I', '1', '\w*(1)|(1)\w*'),
+      new Quirk('TO', '2', '\s+(2)\s+'),
+      new Quirk('E', '3', '\w*(3)|(3)\w*'),
+      new Quirk('A', '4', '\w*(4)|(4)\w*') // "4" only means "for" when alone.
     ], true),
   'GA' : new Troll('GA', [], true), // So You May Have Some Insight Into Her Disposition
   'AT' : new Troll('AT', [], true), // oH, tHE ONE WHO'S SUPPOSED TO BE "cool", i THINK,
-  'CG' : new Troll('CG', [], true) // MUST EXPLAIN WHY IT SPROUTED SUCH A MISERABLE CROP OF PLAYERS.
+  'CG' : new Troll('CG', [], true), // MUST EXPLAIN WHY IT SPROUTED SUCH A MISERABLE CROP OF PLAYERS.
+  'TA' : new Troll('TA', [ // whoa HERE2 an iidea.
+      new Quirk('I', 'II', '(I{2,})'),
+      new Quirk('i', 'ii', '(i{2,})'),
+      new Quirk('s', '2', '[a-z]([2]+)[a-z]|[a-z]([2]+)|([2]+)[a-z]'), // We separate by caps here since TA tends to utilize caps
+      new Quirk('S', '2', '[A-Z]([2]+)[A-Z]|[A-Z]([2]+)|([2]+)[A-Z]'), // This makes it a bit trickier.
+      new Quirk('to', 'two', '[^a-z](two)[^a-z]'), // "two" can mean "too" or "to", but I'm willing to settle on them all being "to".
+      new Quirk('TO', 'TWO', '[^A-Z](TWO)[^A-Z]') // This character is definitely my first headache.
+    ], false)
 };
 
 /**
@@ -105,11 +119,26 @@ chatlogs.each(function(index, e) {
 
           // Quirks should be a pair of find/replace pairs, where replace is a REGEX-ready string.
           var re = new RegExp(quirk.find, 'g');
-          fixedString = fixedString.replace(re, function (match, p1, offset, string) {
-            console.log('match: ' + match + ', p1: ' + p1 + ', string: ' + string);
-            if (p1) {
-              return match.replace(p1, quirk.replace);
+          console.log(re);
+          fixedString = fixedString.replace(re, function (match) {
+            // console.log(arguments);
+
+            // RegExp.replace functions are passed the following arguments:
+            // match, [matched string 1, matched string 2, ...], offset, fullstring
+            // Since we can't deter HOW many possible matched strings there araer,
+            // we have to loop through the arguments, starting from the first
+            // matched string, and ending two arguments before the end.
+            for (var p = 1; p <= arguments.length - 2; p++) {
+              if (arguments[p]) {
+                // In order to make certain that a couple of edge cases are taken
+                // care of, create a NEW regex in order to capture, say, multiple
+                // instances of the same capture group in a row, such as the "ss"
+                // in "press".
+                var rere = new RegExp(quirk.broken, 'g');
+                return match.replace(rere, quirk.fixed);
+              }
             }
+
             return match;
           });
         }
