@@ -52,8 +52,11 @@ var Troll = function(handle, quirks, lowercase) {
  * A definition of a find and replace pair, and the Regex used to locate the issue.
  *
  * @param fixed
- * @param broken (currently unused, but I figure it's nice to plan ahead)
+ *   What to replace with.
+ * @param broken
+ *   The succinct example of what needs to be replaced.
  * @param find
+ *   Regex for the replaced text, to specify.
  * @returns {{find: *, replace: *}}
  * @constructor
  */
@@ -98,7 +101,12 @@ var trolls = {
       new Quirk('to', 'two', '[^a-z](two)[^a-z]'), // "two" can mean "too" or "to", but I'm willing to settle on them all being "to".
       new Quirk('TO', 'TWO', '[^A-Z](TWO)[^A-Z]') // This character is definitely my first headache.
     ], false),
-  'TC' : new Troll('TC', [], true) // wHaT iS uUuUuP mY iNvErTeBrOtHeR?
+  'TC' : new Troll('TC', [], true), // wHaT iS uUuUuP mY iNvErTeBrOtHeR?
+  'AC' : new Troll('AC', [ // :33 < *she thinks that goblin wishes n33d to come true too just like any other kind of purrsons wishes*
+      new Quirk('', ':33 < ', '(\:33 \< )'), // Get rid of the multiple-mouths prefix
+      new Quirk('e', '3', '[a-z]([3]+)[a-z]|[a-z]([3]+)|([3]+)[a-z]'), // Double-ees in sentences have been turned to 3s.
+      new Quirk('per', 'purr', '(purr)') // This will not work properly for "purpose" but at least it won't be "purrpose". Actual uses of "purring" or "purrs" incorrectly change.
+    ], false)
 };
 
 /**
@@ -111,10 +119,12 @@ chatlogs.each(function(index, e) {
   var testHandle = fixedString.match(/^([A-Z]+):/);
   var chatlog = $(this);
   if (testHandle && trolls[testHandle[1]]) {
+
     // Run replacements based on which handle was found.
     var currentTroll = trolls[testHandle[1]];
     if (currentTroll.quirks) {
 
+      // Loop through the quirks and execute the replacements defined therein.
       for (var quirkindex in currentTroll.quirks) {
         if (currentTroll.quirks.hasOwnProperty(quirkindex)) {
           var quirk = currentTroll.quirks[quirkindex];
@@ -123,10 +133,9 @@ chatlogs.each(function(index, e) {
           var re = new RegExp(quirk.find, 'g');
           fixedString = fixedString.replace(re, function (match) {
             // console.log(arguments);
-
             // RegExp.replace functions are passed the following arguments:
             // match, [matched string 1, matched string 2, ...], offset, fullstring
-            // Since we can't deter HOW many possible matched strings there araer,
+            // Since we can't deter HOW many possible matched strings there are,
             // we have to loop through the arguments, starting from the first
             // matched string, and ending two arguments before the end.
             for (var p = 1; p <= arguments.length - 2; p++) {
@@ -135,6 +144,7 @@ chatlogs.each(function(index, e) {
                 // care of, create a NEW regex in order to capture, say, multiple
                 // instances of the same capture group in a row, such as the "ss"
                 // in "press".
+                console.log('replacing ' + arguments[p] + ' with ' + quirk.fixed);
                 var rere = new RegExp(quirk.broken, 'g');
                 return match.replace(rere, quirk.fixed);
               }
