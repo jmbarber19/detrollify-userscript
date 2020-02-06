@@ -10,6 +10,7 @@ After installation, Detrollify should work automatically, cleaning up troll quir
 * GA
 * AT
 * CG
+* TC
 
 ### Show Troll
 
@@ -24,3 +25,13 @@ Since this module is not listed in the Firefox add-on store, you'll need to add 
 1. Click on the Hamburger menu, normally in the upper-right, and click "Add-ons".
 1. Click on the Cog menu at the top of the page and select "Install Add-on From File..."
 1. Locate the .xpi file contained in this repo and add it.
+
+# Contributing
+
+Did you make updates to this module, and need to re-submit it so that you can use it? In other words, are you probably me? Follow these instructions:
+
+1. Select all necessary files for Detrollify and compress them.
+1. Rename the Compressed file to have the version in it.
+1. Remove the old version.
+1. Go to https://addons.mozilla.org/
+1. Modify the add-on and upload the new version!
