@@ -91,12 +91,14 @@ var trolls = {
   'CG' : new Troll('CG', [], true), // MUST EXPLAIN WHY IT SPROUTED SUCH A MISERABLE CROP OF PLAYERS.
   'TA' : new Troll('TA', [ // whoa HERE2 an iidea.
       new Quirk('I', 'II', '(I{2,})'),
+      new Quirk('I', 'II', '\b(i{2,})\b'),
       new Quirk('i', 'ii', '(i{2,})'),
       new Quirk('s', '2', '[a-z]([2]+)[a-z]|[a-z]([2]+)|([2]+)[a-z]'), // We separate by caps here since TA tends to utilize caps
       new Quirk('S', '2', '[A-Z]([2]+)[A-Z]|[A-Z]([2]+)|([2]+)[A-Z]'), // This makes it a bit trickier.
       new Quirk('to', 'two', '[^a-z](two)[^a-z]'), // "two" can mean "too" or "to", but I'm willing to settle on them all being "to".
       new Quirk('TO', 'TWO', '[^A-Z](TWO)[^A-Z]') // This character is definitely my first headache.
-    ], false)
+    ], false),
+  'TC' : new Troll('TC', [], true) // wHaT iS uUuUuP mY iNvErTeBrOtHeR?
 };
 
 /**
