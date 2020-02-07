@@ -84,29 +84,32 @@ var Quirk = function(fixed, broken, find) {
  */
 var trolls = {
   'GC' : new Troll('GC', [ // 3V3RY S3SS1ON 1S D1FF3R3NT 4 YOU
-      new Quirk('I', '1', '\w*(1)|(1)\w*'),
-      new Quirk('TO', '2', '\s+(2)\s+'),
-      new Quirk('E', '3', '\w*(3)|(3)\w*'),
-      new Quirk('A', '4', '\w*(4)|(4)\w*') // "4" only means "for" when alone.
-    ], true),
+    new Quirk('I', '1', '\w*(1)|(1)\w*'),
+    new Quirk('TO', '2', '\s+(2)\s+'),
+    new Quirk('E', '3', '\w*(3)|(3)\w*'),
+    new Quirk('A', '4', '\w*(4)|(4)\w*') // "4" only means "for" when alone.
+  ], true),
   'GA' : new Troll('GA', [], true), // So You May Have Some Insight Into Her Disposition
   'AT' : new Troll('AT', [], true), // oH, tHE ONE WHO'S SUPPOSED TO BE "cool", i THINK,
   'CG' : new Troll('CG', [], true), // MUST EXPLAIN WHY IT SPROUTED SUCH A MISERABLE CROP OF PLAYERS.
   'TA' : new Troll('TA', [ // whoa HERE2 an iidea.
-      new Quirk('I', 'II', '(I{2,})'),
-      new Quirk('I', 'II', '\b(i{2,})\b'),
-      new Quirk('i', 'ii', '(i{2,})'),
-      new Quirk('s', '2', '[a-z]([2]+)[a-z]|[a-z]([2]+)|([2]+)[a-z]'), // We separate by caps here since TA tends to utilize caps
-      new Quirk('S', '2', '[A-Z]([2]+)[A-Z]|[A-Z]([2]+)|([2]+)[A-Z]'), // This makes it a bit trickier.
-      new Quirk('to', 'two', '[^a-z](two)[^a-z]'), // "two" can mean "too" or "to", but I'm willing to settle on them all being "to".
-      new Quirk('TO', 'TWO', '[^A-Z](TWO)[^A-Z]') // This character is definitely my first headache.
-    ], false),
+    new Quirk('I', 'II', '(I{2,})'),
+    new Quirk('I', 'II', '\b(i{2,})\b'),
+    new Quirk('i', 'ii', '(i{2,})'),
+    new Quirk('s', '2', '[a-z]([2]+)[a-z]|[a-z]([2]+)|([2]+)[a-z]'), // We separate by caps here since TA tends to utilize caps
+    new Quirk('S', '2', '[A-Z]([2]+)[A-Z]|[A-Z]([2]+)|([2]+)[A-Z]'), // This makes it a bit trickier.
+    new Quirk('to', 'two', '(two)'), // "two" can mean "too" or "to", but I'm willing to settle on them all being "to".
+    new Quirk('TO', 'TWO', '(TWO)') // This character is definitely my first headache.
+  ], false),
   'TC' : new Troll('TC', [], true), // wHaT iS uUuUuP mY iNvErTeBrOtHeR?
   'AC' : new Troll('AC', [ // :33 < *she thinks that goblin wishes n33d to come true too just like any other kind of purrsons wishes*
-      new Quirk('', ':33 < ', '(\:33 \< )'), // Get rid of the multiple-mouths prefix
-      new Quirk('e', '3', '[a-z]([3]+)[a-z]|[a-z]([3]+)|([3]+)[a-z]'), // Double-ees in sentences have been turned to 3s.
-      new Quirk('per', 'purr', '(purr)') // This will not work properly for "purpose" but at least it won't be "purrpose". Actual uses of "purring" or "purrs" incorrectly change.
-    ], false)
+    new Quirk('', ':33 < ', '(\:33 \< )'), // Get rid of the multiple-mouths prefix
+    new Quirk('e', '3', '[a-z]([3]+)[a-z]|[a-z]([3]+)|([3]+)[a-z]'), // Double-ees in sentences have been turned to 3s.
+    new Quirk('per', 'purr', '(purr)') // This will not work properly for "purpose" but at least it won't be "purrpose". Actual uses of "purring" or "purrs" incorrectly change.
+  ], false),
+  'AA' : new Troll('AA', [ // im 0k with a l0t 0f things
+    new Quirk('o', '0', '[a-z]([0]+)[a-z]|[a-z]([0]+)|([0]+)[a-z]')
+  ], false)
 };
 
 /**
@@ -144,7 +147,6 @@ chatlogs.each(function(index, e) {
                 // care of, create a NEW regex in order to capture, say, multiple
                 // instances of the same capture group in a row, such as the "ss"
                 // in "press".
-                console.log('replacing ' + arguments[p] + ' with ' + quirk.fixed);
                 var rere = new RegExp(quirk.broken, 'g');
                 return match.replace(rere, quirk.fixed);
               }
@@ -170,6 +172,11 @@ chatlogs.each(function(index, e) {
       for (var index in emoticons) {
         var emoticon = emoticons[index];
         fixedString = fixedString.replace(emoticon.toLowerCase(), emoticon);
+      }
+
+      // Do the same with Troll acronyms in order to make them stand out.
+      for (var troll in trolls.getOwnPropertyNames()) {
+        fixedString = fixedString.replace(troll.toLowerCase(), troll);
       }
     }
 
