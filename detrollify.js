@@ -109,6 +109,13 @@ var trolls = {
   ], false),
   'AA' : new Troll('AA', [ // im 0k with a l0t 0f things
     new Quirk('o', '0', '[a-z]([0]+)[a-z]|[a-z]([0]+)|([0]+)[a-z]')
+  ], false),
+  'AG' : new Troll('AG', [ // You were f8ed for a team of losers, full of 8lind girls and lame 8oys and cranky iiiiiiiim8eciles.
+    new Quirk('ate', '8', '[a-zA-Z](8)s|[fh](8)[^a-z]|[fh](8)$'), // First go for the 8s that replace "ate". More word possibilities added as we go.
+    new Quirk('at', '8', '[a-zA-Z](8)ed|[a-zA-Z](8)ing'),
+    new Quirk('ATE', '8', '[A-Z](8)ED|[A-Z](8)ING|[A-Z](8)S|[FH](8)[^a-z]|[FH](8)$'),
+    new Quirk('b', '8', '[a-z](8+)[a-z]|[a-z](8+)|(8+)[a-z]'),
+    new Quirk('B', '8', '[A-Z](8+)[A-Z]|[A-Z](8+)|(8+)[A-Z]')
   ], false)
 };
 
@@ -172,11 +179,6 @@ chatlogs.each(function(index, e) {
       for (var index in emoticons) {
         var emoticon = emoticons[index];
         fixedString = fixedString.replace(emoticon.toLowerCase(), emoticon);
-      }
-
-      // Do the same with Troll acronyms in order to make them stand out.
-      for (var troll in trolls.getOwnPropertyNames()) {
-        fixedString = fixedString.replace(troll.toLowerCase(), troll);
       }
     }
 

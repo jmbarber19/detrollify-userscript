@@ -12,6 +12,9 @@ After installation, Detrollify should work automatically, cleaning up troll quir
 * CG
 * TC
 * AC
+* TA
+* AA
+* AG
 
 ### Show Troll
 
@@ -34,7 +37,7 @@ Did you make updates to this module, and need to re-submit it so that you can us
 1. Run `zip -r detrollify.zip . -x ".*" -x "__MACOSX" -x "README.md" -x "*.DS_Store"`
 1. Rename the Compressed file to have the version in it.
 1. Remove the old version.
-1. Go to https://addons.mozilla.org/
+1. Go to https://addons.mozilla.org/en-US/developers/
 1. Modify the add-on and upload the new version.
 1. After verification, wait for an email from Firefox that it's ready for use.
 1. Use the link in the email to find the new version and use it.
