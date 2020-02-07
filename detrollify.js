@@ -96,8 +96,8 @@ var trolls = {
     new Quirk('I', 'II', '(I{2,})'),
     new Quirk('I', 'II', '\b(i{2,})\b'),
     new Quirk('i', 'ii', '(i{2,})'),
-    new Quirk('s', '2', '[a-z]([2]+)[a-z]|[a-z]([2]+)|([2]+)[a-z]'), // We separate by caps here since TA tends to utilize caps
-    new Quirk('S', '2', '[A-Z]([2]+)[A-Z]|[A-Z]([2]+)|([2]+)[A-Z]'), // This makes it a bit trickier.
+    new Quirk('s', '2', '[a-z](2+)[a-z]|[a-z](2+)|(2+)[a-z]'), // We separate by caps here since TA tends to utilize caps
+    new Quirk('S', '2', '[A-Z](2+)[A-Z]|[A-Z](2+)|(2+)[A-Z]'), // This makes it a bit trickier.
     new Quirk('to', 'two', '(two)'), // "two" can mean "too" or "to", but I'm willing to settle on them all being "to".
     new Quirk('TO', 'TWO', '(TWO)') // This character is definitely my first headache.
   ], false),
