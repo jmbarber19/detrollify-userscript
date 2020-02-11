@@ -105,7 +105,9 @@ var trolls = {
   'AC' : new Troll('AC', [ // :33 < *she thinks that goblin wishes n33d to come true too just like any other kind of purrsons wishes*
     new Quirk('', ':33 < ', '(\:33 \< )'), // Get rid of the multiple-mouths prefix
     new Quirk('e', '3', '[a-z]([3]+)[a-z]|[a-z]([3]+)|([3]+)[a-z]'), // Double-ees in sentences have been turned to 3s.
-    new Quirk('per', 'purr', '(purr)') // This will not work properly for "purpose" but at least it won't be "purrpose". Actual uses of "purring" or "purrs" incorrectly change.
+    new Quirk('pur', 'purr', '(purr)pose'),
+    new Quirk('pre', 'purr', '(purr)tend'),
+    new Quirk('per', 'purr', '(purr)') // Actual uses of "purring" or "purrs" incorrectly change.
   ], false),
   'AA' : new Troll('AA', [ // im 0k with a l0t 0f things
     new Quirk('o', '0', '[a-z]([0]+)[a-z]|[a-z]([0]+)|([0]+)[a-z]')
