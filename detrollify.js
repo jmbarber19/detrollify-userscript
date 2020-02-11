@@ -120,8 +120,10 @@ var trolls = {
   'CT' : new Troll('CT', [ // D --> This is f001ishness upon one hundred thousand prior. What are you e%pecting.
     new Quirk('', 'D --> ', '(D \-\-\> )'),
     new Quirk('pollute', 'pol100t', '(pol100t)'), // What the hell.
-    new Quirk('ool', '001', '(0+1)'),
-    new Quirk('loo', '100', '(10+)'),
+    new Quirk('Ool', '001', '^CT: (001)'),
+    new Quirk('ool', '001', '(001)'),
+    new Quirk('Loo', '100', '^CT: (100)'),
+    new Quirk('loo', '100', '(100)'),
     new Quirk('x', '%', '(\%)')
   ], false)
 };
@@ -172,9 +174,6 @@ chatlogs.each(function(index, e) {
       }
     }
 
-    // Currently we make all troll lines entirely lowercase; making a more
-    // intelligent replacement scheme, which allows emoticons for example, would
-    // be ideal.
     if (currentTroll.lowercase) {
       // Temporarily remove the Handle from the front of the string so it doesn't
       // get lowercasified, then lowercasify all dialogue.
