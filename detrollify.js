@@ -107,25 +107,36 @@ var trolls = {
     new Quirk('e', '3', '[a-z]([3]+)[a-z]|[a-z]([3]+)|([3]+)[a-z]'), // Double-ees in sentences have been turned to 3s.
     new Quirk('pur', 'purr', '(purr)pose'),
     new Quirk('pre', 'purr', '(purr)tend'),
+    new Quirk('po', 'purr', '(purr)sition'),
+    new Quirk('pro', 'purr', '(purr)mise'),
+    new Quirk('pa', 'purr', 'tele(purr)thy'),
     new Quirk('per', 'purr', '(purr)') // Actual uses of "purring" or "purrs" incorrectly change.
   ], false),
   'AA' : new Troll('AA', [ // im 0k with a l0t 0f things
     new Quirk('o', '0', '[a-z]([0]+)[a-z]|[a-z]([0]+)|([0]+)[a-z]')
   ], false),
   'AG' : new Troll('AG', [ // You were f8ed for a team of losers, full of 8lind girls and lame 8oys and cranky iiiiiiiim8eciles.
-    new Quirk('ate', '8', '[a-zA-Z](8)s|[fh](8)[^a-z]|[fh](8)$'), // First go for the 8s that replace "ate". More word possibilities added as we go.
-    new Quirk('at', '8', '[a-zA-Z](8)ed|[a-zA-Z](8)ing'),
-    new Quirk('ATE', '8', '[A-Z](8)ED|[A-Z](8)ING|[A-Z](8)S|[FH](8)[^a-z]|[FH](8)$'),
+    new Quirk('ate', '8', '[a-zA-Z](8)s[^a-z]|[fh](8)[^a-z]|[fh](8)$'), // First go for the 8s that replace "ate". More word possibilities added as we go.
+    new Quirk('at', '8', '[a-zA-Z](8)ed[^a-z]|[a-zA-Z](8)ing[^a-z]'),
+    new Quirk('eat', '8', 'gr(8)[^a-z]|Gr(8)[^a-z]'),
+    new Quirk('ATE', '8', '[A-Z](8)ED[^A-Z]|[A-Z](8)ING[^A-Z]|[A-Z](8)S[^A-Z]|[^A-Z][FH](8)[^a-z]|[^A-Z][FH](8)$'),
+    new Quirk('EAT', '8', 'GR(8)[^a-z]'),
+    new Quirk('ain', '8', '[^a-z](8)in\'t'),
     new Quirk('b', '8', '[a-z](8+)[a-z]|[a-z](8+)|(8+)[a-z]'),
     new Quirk('B', '8', '[A-Z](8+)[A-Z]|[A-Z](8+)|(8+)[A-Z]')
   ], false),
   'CT' : new Troll('CT', [ // D --> This is f001ishness upon one hundred thousand prior. What are you e%pecting.
     new Quirk('', 'D --> ', '(D \-\-\> )'),
     new Quirk('pollute', 'pol100t', '(pol100t)'), // What the hell.
+    new Quirk('blue', 'b100', '(b100)'),
     new Quirk('Ool', '001', '^CT: (001)'),
     new Quirk('ool', '001', '(001)'),
     new Quirk('Loo', '100', '^CT: (100)'),
     new Quirk('loo', '100', '(100)'),
+    new Quirk('ct', '%', '[a-z](x)ion[^a-z]'),
+    new Quirk('sc', '%', 'di(%)ussion'),
+    new Quirk('cc', '%', 'a(%)eptable'),
+    new Quirk('cross', '%', '[^a-zA-Z](%)[^a-zA-Z]'),
     new Quirk('x', '%', '(\%)')
   ], false)
 };
