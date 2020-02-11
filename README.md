@@ -15,6 +15,7 @@ After installation, Detrollify should work automatically, cleaning up troll quir
 * TA
 * AA
 * AG
+* CT
 
 ### Show Troll
 

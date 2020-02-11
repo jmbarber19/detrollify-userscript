@@ -116,6 +116,13 @@ var trolls = {
     new Quirk('ATE', '8', '[A-Z](8)ED|[A-Z](8)ING|[A-Z](8)S|[FH](8)[^a-z]|[FH](8)$'),
     new Quirk('b', '8', '[a-z](8+)[a-z]|[a-z](8+)|(8+)[a-z]'),
     new Quirk('B', '8', '[A-Z](8+)[A-Z]|[A-Z](8+)|(8+)[A-Z]')
+  ], false),
+  'CT' : new Troll('CT', [ // D --> This is f001ishness upon one hundred thousand prior. What are you e%pecting.
+    new Quirk('', 'D --> ', '(D \-\-\> )'),
+    new Quirk('pollute', 'pol100t', '(pol100t)'), // What the hell.
+    new Quirk('ool', '001', '(0+1)'),
+    new Quirk('loo', '100', '(10+)'),
+    new Quirk('x', '%', '(\%)')
   ], false)
 };
 
