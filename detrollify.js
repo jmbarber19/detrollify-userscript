@@ -56,7 +56,7 @@ var Troll = function(handle, quirks, lowercase) {
  * @param broken
  *   The succinct example of what needs to be replaced.
  * @param find
- *   Regex for the replaced text, to specify.
+ *   Regex for the replaced text, to specify. Be sure to escape your slashes! \e should be \\e.
  * @returns {{find: *, replace: *}}
  * @constructor
  */
@@ -121,7 +121,7 @@ var trolls = {
     new Quirk('eat', '8', 'gr(8)[^a-z]|Gr(8)[^a-z]'),
     new Quirk('ATE', '8', '[A-Z](8)ED[^A-Z]|[A-Z](8)ING[^A-Z]|[A-Z](8)S[^A-Z]|[^A-Z][FH](8)[^a-z]|[^A-Z][FH](8)$'),
     new Quirk('EAT', '8', 'GR(8)[^a-z]'),
-    new Quirk('ain', '8', '[^a-z](8)in\'t'),
+    new Quirk('ain', '8', '[^a-z](8)in\\\'t'),
     new Quirk('b', '8', '[a-z](8+)[a-z]|[a-z](8+)|(8+)[a-z]'),
     new Quirk('B', '8', '[A-Z](8+)[A-Z]|[A-Z](8+)|(8+)[A-Z]')
   ], false),
@@ -133,11 +133,17 @@ var trolls = {
     new Quirk('ool', '001', '(001)'),
     new Quirk('Loo', '100', '^CT: (100)'),
     new Quirk('loo', '100', '(100)'),
-    new Quirk('ct', '%', '[a-z](x)ion[^a-z]'),
-    new Quirk('sc', '%', 'di(%)ussion'),
-    new Quirk('cc', '%', 'a(%)eptable'),
+    new Quirk('ct', '%', '[a-z](%)ion[^a-z]'),
+    new Quirk('sc', '%', '[Dd]i(%)ussion'),
+    new Quirk('cc', '%', '[Aa](%)eptable'),
     new Quirk('cross', '%', '[^a-zA-Z](%)[^a-zA-Z]'),
-    new Quirk('x', '%', '(\%)')
+    new Quirk('x', '%', '(%)')
+  ], false),
+  'CC' : new Troll('CC', [ // -Everyt)(ing we are about to do next is exciting.
+    new Quirk('H', ')(', '(\\)\\()[A-Z]|(\\)\\()-E'),
+    new Quirk('H', ')(', 'CC: (\\)\\()'),
+    new Quirk('h', ')(', '(\\)\\()'),
+    new Quirk('E', '-E', '(-E)')
   ], false)
 };
 
@@ -164,19 +170,18 @@ chatlogs.each(function(index, e) {
           // Quirks should be a pair of find/replace pairs, where replace is a REGEX-ready string.
           var re = new RegExp(quirk.find, 'g');
           fixedString = fixedString.replace(re, function (match) {
-            // console.log(arguments);
             // RegExp.replace functions are passed the following arguments:
-            // match, [matched string 1, matched string 2, ...], offset, fullstring
+            // match, [matched string 1, matched string 2, ...], offset, fullstring.
             // Since we can't deter HOW many possible matched strings there are,
             // we have to loop through the arguments, starting from the first
             // matched string, and ending two arguments before the end.
             for (var p = 1; p <= arguments.length - 2; p++) {
-              if (arguments[p]) {
+              if (arguments[p] !== '') {
                 // In order to make certain that a couple of edge cases are taken
                 // care of, create a NEW regex in order to capture, say, multiple
                 // instances of the same capture group in a row, such as the "ss"
                 // in "press".
-                var rere = new RegExp(quirk.broken, 'g');
+                var rere = new RegExp(escape_reg_exp(quirk.broken), 'g');
                 return match.replace(rere, quirk.fixed);
               }
             }
@@ -252,3 +257,15 @@ chatlogs.each(function(index, e) {
     $(this).html(fixedString);
   }
 });
+
+/**
+ * Escapes any escapable characters in a regex string.
+ *
+ * Should only be used if you're selecting your capture group later, since
+ * parentheses are escaped via this function.
+ *
+ * @param string
+ */
+function escape_reg_exp(string) {
+  return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&');
+}
