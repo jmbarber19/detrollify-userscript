@@ -144,6 +144,12 @@ var trolls = {
     new Quirk('H', ')(', 'CC: (\\)\\()'),
     new Quirk('h', ')(', '(\\)\\()'),
     new Quirk('E', '-E', '(-E)')
+  ], false),
+  'CA' : new Troll('CA', [ // wwhatEVVER you are so the vvillage twwo wwheel devvice wwhen it comes to auspisticing
+    new Quirk('w', 'ww', '(ww)'),
+    new Quirk('W', 'WW', '(WW)'),
+    new Quirk('v', 'vv', '(vv)'),
+    new Quirk('V', 'VV', '(VV)')
   ], false)
 };
 
