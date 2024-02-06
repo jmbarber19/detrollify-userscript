@@ -1,5 +1,5 @@
 # What is This?
-A Firefox extension to translate the translatable troll Pesterchum "quirks" from Homestuck.
+A userscript to translate the translatable troll Pesterchum "quirks" from Homestuck.
 
 # How to Use
 After installation, Detrollify should work automatically, cleaning up troll quirks where it can.
@@ -26,21 +26,9 @@ Unfortunately, all troll chatlogs are hand-written by the author of Homestuck, A
 ![Example of Showing Trolltext](https://i.imgur.com/a3PIfp6.gif)
 
 # Installation
-Since this module is not listed in the Firefox add-on store, you'll need to add it yourself
+This userscript requires an addon such as Greasemonkey or Tampermonkey.
 
-1. Open Firefox.
-1. Click on the Hamburger menu, normally in the upper-right, and click "Add-ons".
-1. Click on the Cog menu at the top of the page and select "Install Add-on From File..."
-1. Locate the .xpi file contained in this repo and add it.
-
-# Contributing
-
-Did you make updates to this module, and need to re-submit it so that you can use it? In other words, are you probably me? Follow these instructions:
-
-1. Run `zip -r detrollify.zip . -x ".*" -x "__MACOSX" -x "README.md" -x "*.DS_Store"`
-1. Rename the Compressed file to have the version in it.
-1. Remove the old version.
-1. Go to https://addons.mozilla.org/en-US/developers/
-1. Modify the add-on and upload the new version.
-1. After verification, wait for an email from Firefox that it's ready for use.
-1. Use the link in the email to find the new version and use it.
+1. Naviage to your extensions list in Firefox or Chrome
+   - Greasemonkey: Click "New user script..."
+   - Tampermonkey: Click "Create a new script..."
+2. Paste contents of `detrollify.js` into the new userscript and save

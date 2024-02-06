@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         Detrollify
+// @version      2024-02-06
+// @require      https://code.jquery.com/jquery-3.3.1.min.js
+// @description  A userscript to translate the translatable troll Pesterchum "quirks" from Homestuck.
+// @author       https://github.com/jwaxo - original script
+// @author       https://github.com/jmbarber19 - userscript port
+// @match        https://www.homestuck.com/*
+// @icon         https://www.homestuck.com/favicon.ico
+// ==/UserScript==
+
 /**
  detrollify.js by @jwaxo
  This seeks out the chat logs on a page of Homestuck and attempts to remove the
@@ -9,8 +20,8 @@
  **/
 
 var chatlogs = $(".o_chat-log span");
-var showtrolltext = "(show troll)";
-var hidetrolltext = "(hide troll)";
+var showtrolltext = "✔";
+var hidetrolltext = "✖";
 
 // Emoticons only needs to include ones that have a letter character which will
 // be affected by the lowercasifying.
