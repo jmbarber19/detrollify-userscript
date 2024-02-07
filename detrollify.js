@@ -1,23 +1,12 @@
 // ==UserScript==
 // @name         Detrollify
 // @version      2024-02-06
-// @description  A userscript to translate the translatable troll Pesterchum "quirks" from Homestuck.
+// @description  A userscript to clean the troll Pesterchum "quirks" from Homestuck for ease of access when reading.
 // @author       https://github.com/jwaxo - original script
 // @author       https://github.com/jmbarber19 - userscript port
 // @match        https://www.homestuck.com/*
 // @icon         https://www.homestuck.com/favicon.ico
 // ==/UserScript==
-
-/**
- detrollify.js by @jwaxo
-This seeks out the chat logs on a page of Homestuck and attempts to remove the
-various typing "quirks" of Trolls to make them more legible.
-
-As typing quirks are considered a large part of a troll's personality, and may
-have some story implications, this can be seen as a hostile move by the
-Homestuck fandom. You have been warned.
-**/
-
 
 const CHATLOGS = document.querySelectorAll(".o_chat-log span");
 const SHOW_TEXT = "👁";
