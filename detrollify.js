@@ -9,8 +9,9 @@
 // ==/UserScript==
 
 const CHATLOGS = document.querySelectorAll(".o_chat-log span");
-const SHOW_TEXT = "👁";
-const HIDE_TEXT = "✖";
+const TOGGLE_TEXT = "👁";
+const RED_COLOR = "rgba(255,0,0,1)";
+const CLEAR_COLOR = "rgba(255,0,0,0)";
 const EMOTICONS = [
   'D:',
   '>:D',
@@ -153,14 +154,14 @@ for (let i = 0; i < CHATLOGS.length; i++) {
     toggleButton.dataset.originalText = currentLog.textContent;
     toggleButton.dataset.finalText = finalLog;
     toggleButton.dataset.showFinal = true;
-    toggleButton.textContent = SHOW_TEXT;
+    toggleButton.textContent = TOGGLE_TEXT;
 
     currentLog.onmouseover = (event) => {
       let localButton = event.target;
       if (event.target.tagName == "SPAN") {
         localButton = event.target.childNodes[event.target.childNodes.length - 1];
       }
-      localButton.style.color = "rgba(255,0,0,1)";
+      localButton.style.color = RED_COLOR;
     }
 
     currentLog.onmouseleave = (event) => {
@@ -168,7 +169,7 @@ for (let i = 0; i < CHATLOGS.length; i++) {
       if (event.target.tagName == "SPAN") {
         localButton = event.target.childNodes[event.target.childNodes.length - 1];
       }
-      localButton.style.color = "rgba(255,0,0,0)";
+      localButton.style.color = CLEAR_COLOR;
     }
 
     currentLog.onmousedown = (event) => {
