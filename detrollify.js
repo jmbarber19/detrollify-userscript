@@ -1,7 +1,6 @@
 // ==UserScript==
 // @name         Detrollify
 // @version      2024-02-06
-// @require      https://code.jquery.com/jquery-3.3.1.min.js
 // @description  A userscript to translate the translatable troll Pesterchum "quirks" from Homestuck.
 // @author       https://github.com/jwaxo - original script
 // @author       https://github.com/jmbarber19 - userscript port
