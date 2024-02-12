@@ -9,9 +9,6 @@
 // ==/UserScript==
 
 const CHATLOGS = document.querySelectorAll(".o_chat-log span");
-const TOGGLE_TEXT = "👁";
-const RED_COLOR = "rgba(255,0,0,1)";
-const CLEAR_COLOR = "rgba(255,0,0,0)";
 const EMOTICONS = [
   'D:',
   '>:D',
@@ -142,49 +139,17 @@ for (let i = 0; i < CHATLOGS.length; i++) {
       }
     }
 
-    const toggleButton = document.createElement("a");
-    toggleButton.className = "asdf"
-    toggleButton.style.display = "inline";
-    toggleButton.style.color = "rgba(255,0,0,0)";
-    toggleButton.style.paddingLeft = "0.5em";
-    toggleButton.style.textDecoration = "none";
-    toggleButton.style.cursor = "pointer";
-    toggleButton.style.userSelect = "none";
-    toggleButton.style.transition = "color 0.5s";
-    toggleButton.dataset.originalText = currentLog.textContent;
-    toggleButton.dataset.finalText = finalLog;
-    toggleButton.dataset.showFinal = true;
-    toggleButton.textContent = TOGGLE_TEXT;
-
-    currentLog.onmouseover = (event) => {
-      let localButton = event.target;
-      if (event.target.tagName == "SPAN") {
-        localButton = event.target.childNodes[event.target.childNodes.length - 1];
-      }
-      localButton.style.color = RED_COLOR;
-    }
-
-    currentLog.onmouseleave = (event) => {
-      let localButton = event.target;
-      if (event.target.tagName == "SPAN") {
-        localButton = event.target.childNodes[event.target.childNodes.length - 1];
-      }
-      localButton.style.color = CLEAR_COLOR;
-    }
+    currentLog.dataset.originalText = currentLog.textContent;
+    currentLog.dataset.finalText = finalLog;
+    currentLog.dataset.showFinal = true;
 
     currentLog.onmousedown = (event) => {
-      if (event.target.tagName != "A") {
-        return;
-      }
-      let localButton = event.target;
-      let textElement = event.target.parentNode.childNodes[0];
-
-      if (localButton.dataset.showFinal == "true") {
-        textElement.textContent = localButton.dataset.originalText;
-        localButton.dataset.showFinal = false;
+      if (event.target.dataset.showFinal == "true") {
+        event.target.textContent = event.target.dataset.originalText;
+        event.target.dataset.showFinal = false;
       } else {
-        textElement.textContent = localButton.dataset.finalText;
-        localButton.dataset.showFinal = true;
+        event.target.textContent = event.target.dataset.finalText;
+        event.target.dataset.showFinal = true;
       }
     }
 
