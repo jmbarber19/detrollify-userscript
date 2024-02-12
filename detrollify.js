@@ -154,7 +154,5 @@ for (let i = 0; i < CHATLOGS.length; i++) {
     }
 
     currentLog.textContent = finalLog;
-    currentLog.appendChild(toggleButton);
-
   }
 }
